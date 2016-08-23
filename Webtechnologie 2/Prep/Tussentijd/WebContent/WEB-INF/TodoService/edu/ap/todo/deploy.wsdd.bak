@@ -1,0 +1,34 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from TodoService WSDL service -->
+
+  <service name="Todo" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://todo.ap.edu"/>
+      <parameter name="wsdlServiceElement" value="TodoService"/>
+      <parameter name="schemaQualified" value="http://todo.ap.edu"/>
+      <parameter name="wsdlServicePort" value="Todo"/>
+      <parameter name="className" value="edu.ap.todo.TodoSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="Todo"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="add" qname="operNS:add" xmlns:operNS="http://todo.ap.edu" soapAction="" >
+        <parameter qname="pns:startdate" xmlns:pns="http://todo.ap.edu" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:enddate" xmlns:pns="http://todo.ap.edu" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:priority" xmlns:pns="http://todo.ap.edu" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:description" xmlns:pns="http://todo.ap.edu" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="list" qname="operNS:list" xmlns:operNS="http://todo.ap.edu" soapAction="" >
+      </operation>
+      <parameter name="allowedMethods" value="add list"/>
+
+  </service>
+</deployment>
